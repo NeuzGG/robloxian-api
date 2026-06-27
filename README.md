@@ -1,4 +1,4 @@
-# 🤖 robloxian-api
+# robloxian-api
 
 <p align="center">
   <img src="https://img.shields.io/npm/v/robloxian-api?style=for-the-badge&color=7b2cbf" alt="npm version" />
@@ -9,37 +9,37 @@
 
 An advanced, enterprise-grade, lightweight Roblox API wrapper for Node.js. Featuring a robust proxy failover architecture, automatic CSRF token management, HTTP 429 rate-limit backoffs, and native TypeScript declarations. Optimized for high-concurrency Discord bots and web applications.
 
-Authored with ❤️ by **[NeuzGG](https://github.com/NeuzGG)**.
+Authored with respect by **[NeuzGG](https://github.com/NeuzGG)**.
 
 ---
 
-## 📖 Table of Contents
-1. [Key Features](#-key-features)
-2. [How It Works (Under the Hood)](#%EF%B8%8F-how-it-works-under-the-hood)
-3. [Installation](#-installation)
-4. [Authentication Setup](#%EF%B8%8F-authentication-setup)
-5. [Usage Guide](#-usage-guide)
+## Table of Contents
+1. [Key Features](#key-features)
+2. [How It Works (Under the Hood)](#how-it-works-under-the-hood)
+3. [Installation](#installation)
+4. [Authentication Setup](#authentication-setup)
+5. [Usage Guide](#usage-guide)
    * [Functional API Shorthand](#1-functional-api-shorthand)
    * [Multi-Instance RobloxClient](#2-multi-instance-robloxclient)
    * [Discord.js Integration Template](#3-discordjs-integration-template)
-6. [API Reference Directory](#-api-reference-directory)
-7. [TypeScript Support](#-typescript-support)
-8. [Troubleshooting & FAQ](#-troubleshooting--faq)
-9. [License](#-license)
+6. [API Reference Directory](#api-reference-directory)
+7. [TypeScript Support](#typescript-support)
+8. [Troubleshooting & FAQ](#troubleshooting--faq)
+9. [License](#license)
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
-*   **⚡ Zero External Dependencies** — Written entirely in pure JS utilizing native Node.js `fetch` (Node.js 18+).
-*   **🔄 Failover Proxy Engine** — Automatically detects network issues or rate limits on proxies (like RoProxy) and seamlessly falls back to direct Roblox API hosts.
-*   **⏳ Intelligent Rate-Limit Throttling** — Captures HTTP `429 (Too Many Requests)` rate-limiting and applies exponential backoff delays.
-*   **🛡️ Automated CSRF Token Handshaking** — Intercepts Roblox `403 Forbidden` token validations, automatically retrieves the fresh token, caches it, and retries the request transparently.
-*   **📂 Structured Modules** — Separated logically into distinct services (Gamepasses, Users, Groups, Badges, Catalog, and Games) for readability.
+*   **Zero External Dependencies** - Written entirely in pure JS utilizing native Node.js `fetch` (Node.js 18+).
+*   **Failover Proxy Engine** - Automatically detects network issues or rate limits on proxies (like RoProxy) and seamlessly falls back to direct Roblox API hosts.
+*   **Intelligent Rate-Limit Throttling** - Captures HTTP `429 (Too Many Requests)` rate-limiting and applies exponential backoff delays.
+*   **Automated CSRF Token Handshaking** - Intercepts Roblox `403 Forbidden` token validations, automatically retrieves the fresh token, caches it, and retries the request transparently.
+*   **Structured Modules** - Separated logically into distinct services (Gamepasses, Users, Groups, Badges, Catalog, and Games) for readability.
 
 ---
 
-## ⚙️ How It Works (Under the Hood)
+## How It Works (Under the Hood)
 
 Whenever you dispatch an API call (e.g., check gamepass ownership or verify group roles), the query routes through our unified HTTP engine:
 
@@ -62,7 +62,7 @@ graph TD
 
 ---
 
-## 📦 Installation
+## Installation
 
 Install `robloxian-api` in your Node.js project:
 
@@ -74,12 +74,12 @@ Ensure you are using **Node.js version 18.0.0** or higher.
 
 ---
 
-## 🔐 Authentication Setup
+## Authentication Setup
 
 Some endpoints (such as checking private inventories, fetching user Robux balances, or updating assets) require cookie authentication.
 
 1. Go to [Roblox.com](https://www.roblox.com) and log in.
-2. Open your browser's developer tool console (`F12` or inspect).
+2. Open your browser's developer tool console (F12 or inspect).
 3. Go to the **Application** tab (Chrome/Edge) or **Storage** tab (Firefox).
 4. Expand **Cookies** on the left menu and select `https://www.roblox.com`.
 5. Locate the cookie named **`.ROBLOSECURITY`** and copy its full value.
@@ -98,7 +98,7 @@ LOG_LEVEL=info
 
 ---
 
-## 🛠️ Usage Guide
+## Usage Guide
 
 ### 1. Functional API Shorthand
 Perfect for quick scripts or when you only run a single account using environment variables:
@@ -115,7 +115,7 @@ const { fetchRobloxUser, checkUserOwnsGamepass } = require('robloxian-api');
     // Check if the user owns a gamepass (requires ROBLOX_COOKIE set in .env)
     const gamepassId = 20268598;
     const ownsPass = await checkUserOwnsGamepass(user.id, gamepassId);
-    console.log(`Owns Gamepass: ${ownsPass ? '✅ Yes' : '❌ No'}`);
+    console.log(`Owns Gamepass: ${ownsPass ? 'Yes' : 'No'}`);
   }
 })();
 ```
@@ -162,15 +162,15 @@ discordClient.on('messageCreate', async (message) => {
     const username = args[1];
 
     if (!username) {
-      return message.reply('❌ Please specify your Roblox username! Example: `!verify Shedletsky`');
+      return message.reply('Please specify your Roblox username! Example: `!verify Shedletsky`');
     }
 
-    const checkingMsg = await message.reply(`⏳ Checking database for username "${username}"...`);
+    const checkingMsg = await message.reply(`Checking database for username "${username}"...`);
 
     try {
       const user = await fetchRobloxUser(username);
       if (!user) {
-        return checkingMsg.edit(`❌ Roblox user "${username}" was not found!`);
+        return checkingMsg.edit(`Roblox user "${username}" was not found!`);
       }
 
       // Check if they own the VIP Gamepass (replace with your Gamepass ID)
@@ -178,13 +178,13 @@ discordClient.on('messageCreate', async (message) => {
       const hasPass = await checkUserOwnsGamepass(user.id, vipGamepassId);
 
       if (hasPass) {
-        return checkingMsg.edit(`🎉 Verification Successful! **${user.displayName}** owns the VIP Gamepass.`);
+        return checkingMsg.edit(`Verification Successful! **${user.displayName}** owns the VIP Gamepass.`);
       } else {
-        return checkingMsg.edit(`❌ **${user.displayName}** does not own the required VIP Gamepass.`);
+        return checkingMsg.edit(`**${user.displayName}** does not own the required VIP Gamepass.`);
       }
     } catch (err) {
       console.error(err);
-      return checkingMsg.edit('❌ An error occurred while communicating with the Roblox API.');
+      return checkingMsg.edit('An error occurred while communicating with the Roblox API.');
     }
   }
 });
@@ -194,17 +194,17 @@ discordClient.login('YOUR_DISCORD_BOT_TOKEN');
 
 ---
 
-## 🗂️ API Reference Directory
+## API Reference Directory
 
-### 🎫 Gamepass Service
+### Gamepass Service
 | Function | Parameters | Return Type | Description |
 | :--- | :--- | :--- | :--- |
-| `extractGamepassIds` | `(text: string)` | `Array<{id, url}>` | Parses a block of text and returns all extracted gamepass IDs & links. |
+| `extractGamepassIds` | `(text: string)` | `Array<{id, url}>` | Parses a text string and returns all extracted gamepass IDs and links. |
 | `fetchGamepassInfo` | `(id: string\|number)` | `Promise<object>` | Fetches basic gamepass details (name, price) using product info. |
 | `fetchGamepassDetails`| `(id: string\|number)` | `Promise<object>` | Fetches advanced details (price, regional pricing, for-sale status). |
 | `checkUserOwnsGamepass`| `(userId: string\|number, gamepassId: string\|number)` | `Promise<boolean>` | Queries user inventory to check if they own the gamepass. |
 
-### 👤 User Service
+### User Service
 | Function | Parameters | Return Type | Description |
 | :--- | :--- | :--- | :--- |
 | `fetchRobloxUser` | `(username: string)` | `Promise<object>` | Resolves username to `{ id, username, displayName }`. |
@@ -213,27 +213,27 @@ discordClient.login('YOUR_DISCORD_BOT_TOKEN');
 | `fetchUserPresence` | `(userIds: number[])` | `Promise<object[]>`| Checks presence state (Online/Offline/In Game/Studio) for up to 100 users. |
 | `validateCookie` | `()` | `Promise<object>` | Checks cookie status, returns user ID, username, and Robux balance. |
 
-### 👥 Group Service
+### Group Service
 | Function | Parameters | Return Type | Description |
 | :--- | :--- | :--- | :--- |
 | `checkGroupMembership`| `(userId: string\|number, groupId: string\|number)` | `Promise<boolean>` | Verifies if the target user is currently in the group. |
 | `fetchUserGroupRole` | `(userId: string\|number, groupId: string\|number)` | `Promise<object>` | Gets user's exact role name, role ID, and rank (0-255). |
-| `fetchGroupRoles` | `(groupId: string\|number)` | `Promise<object[]>`| Lists all ranks/roles defined within the group. |
+| `fetchGroupRoles` | `(groupId: string\|number)` | `Promise<object[]>`| Lists all ranks and roles defined within the group. |
 | `fetchGroupMembers` | `(groupId: string\|number, options?: object)` | `Promise<object>` | Lists group members (supports recursive lookup or page cursors). |
 
-### 🏅 Badge Service
+### Badge Service
 | Function | Parameters | Return Type | Description |
 | :--- | :--- | :--- | :--- |
 | `fetchBadgeInfo` | `(badgeId: string\|number)` | `Promise<object>` | Gets badge name, description, icon ID, award counts, and win rate. |
 | `checkUserOwnsBadge` | `(userId: string\|number, badgeIds: number[]\|number)` | `Promise<boolean\|object>` | Verifies badge awards (supports single badge check or batch checking). |
 
-### 🛍️ Catalog Service
+### Catalog Service
 | Function | Parameters | Return Type | Description |
 | :--- | :--- | :--- | :--- |
 | `fetchAssetDetails` | `(assetId: string\|number)` | `Promise<object>` | Gets catalog metadata for apparel, accessories, animations, etc. |
-| `checkUserOwnsAsset` | `(userId: string\|number, assetId: string\|number)` | `Promise<boolean>` | Checks inventory to check if they own the catalog asset. |
+| `checkUserOwnsAsset` | `(userId: string\|number, assetId: string\|number)` | `Promise<boolean>` | Checks inventory to verify if they own the catalog asset. |
 
-### 🎮 Game Service
+### Game Service
 | Function | Parameters | Return Type | Description |
 | :--- | :--- | :--- | :--- |
 | `fetchUniverseInfo` | `(universeId: string\|number)`| `Promise<object>` | Returns active playercounts, total visits, creator details, and created date. |
@@ -241,7 +241,7 @@ discordClient.login('YOUR_DISCORD_BOT_TOKEN');
 
 ---
 
-## 📘 TypeScript Support
+## TypeScript Support
 
 This package ships with a robust `index.d.ts` declaration file. If you are coding in TypeScript, you can import types and class structures cleanly:
 
@@ -261,9 +261,9 @@ async function verifyPlayer(username: string): Promise<void> {
 
 ---
 
-## ❓ Troubleshooting & FAQ
+## Troubleshooting & FAQ
 
-### Q1: Why do some endpoints return 401/403 or `null`?
+### Q1: Why do some endpoints return 401/403 or null?
 *   **Cookie Missing:** Endpoints like `validateCookie` or checking private inventories require a valid `.ROBLOSECURITY` cookie. Make sure `ROBLOX_COOKIE` is set in your `.env` or passed directly to the `RobloxClient` options.
 *   **Cookie Expired:** Roblox cookies expire or get invalidated if you click "Log Out" on the browser you extracted the cookie from. Log in using an incognito window, close the tab without logging out, and use that cookie to keep it valid.
 
@@ -277,6 +277,6 @@ By default, the client has `useProxy: true`. It constructs the request first usi
 
 ---
 
-## 📜 License
+## License
 
 MIT License. Developed with pride by **[NeuzGG](https://github.com/NeuzGG)**. Feel free to copy, modify, and distribute!
