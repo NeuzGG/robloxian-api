@@ -1,0 +1,31 @@
+{
+  "name": "robloxian-api",
+  "version": "1.0.0",
+  "description": "An advanced, modern, lightweight, and structured Roblox API wrapper for Node.js. Optimized for bots and web apps with failover proxies, rate-limit retries, and full TypeScript typings.",
+  "main": "src/index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "node scratch/test.js"
+  },
+  "keywords": [
+    "roblox",
+    "roblox-api",
+    "robloxian-api",
+    "roproxy",
+    "gamepass",
+    "noblox"
+  ],
+  "author": "NeuzGG",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NeuzGG/robloxian-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NeuzGG/robloxian-api/issues"
+  },
+  "homepage": "https://github.com/NeuzGG/robloxian-api#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
